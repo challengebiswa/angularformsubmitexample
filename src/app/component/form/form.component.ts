@@ -10,7 +10,7 @@ import {User} from './user';
 export class FormComponent implements OnInit {
     registerForm: FormGroup;
     submitted = false;
-    user:User;
+    user:any;
     constructor(private formBuilder: FormBuilder) { }
  
     ngOnInit() {
@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
+        this.user=new User('','','','');
     }
  
     // convenience getter for easy access to form fields
@@ -28,7 +29,7 @@ export class FormComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
         console.log(this.registerForm.get("firstName").value);
- 
+        console.log(this.user.firstName);
         // stop here if form is invalid
         if (this.registerForm.invalid) {
           console.log("form invalid");
