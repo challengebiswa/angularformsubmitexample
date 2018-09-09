@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from './user';
+import { UserService } from '../../service/user.service';
 @Component({
     selector: 'app-form',
     styleUrls: ['./form.component.css'],
@@ -11,7 +12,7 @@ export class FormComponent implements OnInit {
     registerForm: FormGroup;
     submitted = false;
     user:any;
-    constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: FormBuilder,private userService:UserService) { }
  
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
@@ -23,7 +24,7 @@ export class FormComponent implements OnInit {
         this.user=new User('','','','');
     }
  
-    // convenience getter for easy access to form fields
+    
     get f() { return this.registerForm.controls; }
  
     onSubmit() {
@@ -38,7 +39,13 @@ export class FormComponent implements OnInit {
           console.log("form invalid");
             return;
         }
- 
+        this.addUser(this.user);
         alert('SUCCESS!! :-)')
+    }
+
+    addUser(user){
+      this.userService.addUser(user).subscribe(message => { 
+        console.log(message);
+    });
     }
 }
