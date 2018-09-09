@@ -30,6 +30,9 @@ export class FormComponent implements OnInit {
         this.submitted = true;
         console.log(this.registerForm.get("firstName").value);
         console.log(this.user.firstName);
+        console.log(this.user.lastName);
+        console.log(this.user.email);
+        console.log(this.user.password);
         // stop here if form is invalid
         if (this.registerForm.invalid) {
           console.log("form invalid");
