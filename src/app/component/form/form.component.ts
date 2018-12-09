@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from './user';
 import { UserService } from '../../service/user.service';
+import { Employee } from 'src/app/model/emp';
 @Component({
     selector: 'app-form',
     styleUrls: ['./form.component.css'],
@@ -12,6 +13,7 @@ export class FormComponent implements OnInit {
     registerForm: FormGroup;
     submitted = false;
     user:any;
+    employee:Employee;
     constructor(private formBuilder: FormBuilder,private userService:UserService) { }
  
     ngOnInit() {
@@ -22,6 +24,8 @@ export class FormComponent implements OnInit {
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
         this.user=new User('','','','');
+        this.getEmployee();
+        this.getEmployeePostData();
     }
  
     
@@ -47,5 +51,21 @@ export class FormComponent implements OnInit {
       this.userService.addUser(user).subscribe(message => { 
         console.log(message);
     });
+    }
+
+    getEmployee(){
+        this.userService.getEmployee(1).subscribe(response=>{
+            this.employee=response;
+            console.log(response);
+            console.log(this.employee.id);
+        });
+    }
+
+    getEmployeePostData(){
+        this.userService.getEmployeePostData().subscribe(response=>{
+            this.employee=response;
+            console.log(response);
+            console.log(this.employee.id);
+        });
     }
 }
